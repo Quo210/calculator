@@ -22,6 +22,10 @@ function percent(target,percent) {
     return (target/100) * percent
 }
 
+function power(a,b) {
+    return a**b;
+}
+
 function operate(numb1,numb2,operator) {
     switch(operator) {
         case (operator === '+'):
