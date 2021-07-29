@@ -56,6 +56,7 @@ html {
       font-family: monospace;
       margin-top: 10px;
       margin-bottom: 10px;
+      outline: white solid 1px;
   }
 
   div#buttons {
@@ -90,6 +91,7 @@ html {
       min-width: 50px;
       font-family: monospace;
       font-size: 32px;
+      border-radius: 20px;
   }
 
   button#sum {
@@ -116,3 +118,14 @@ html {
     background-color: rgb(20, 178, 222);
   }
 
+button#clear {
+  background-color: hsl(225, 100%, 50%);
+}
+
+button#clearplus {
+  background-color: hsl(275, 100%, 50%);
+}
+
+h5 {
+  margin-left: 20px;
+}
