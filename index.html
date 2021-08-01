@@ -17,6 +17,7 @@
         </div>
         <div id="buttons">
             <div id="digits" class="gridButtons">
+                <button id="zero">0</button>
                 <button id="one">1</button>
                 <button id="two">2</button>
                 <button id="three">3</button>
@@ -26,25 +27,50 @@
                 <button id="seven">7</button>
                 <button id="eight">8</button>
                 <button id="nine">9</button>
-                <button id="zero">0</button>
-                <button id="dot">.</button>
+                <button id="dot" data-key="Decimal">.</button>
             </div>
             <div id="symbols" class="gridButtons">
-                <button id="sum">+</button>
-                <button id="subs">-</button>
-                <button id="mult">*</button>
-                <button id="div">/</button>
+                <button id="sum" data-key="NumpadAdd">+</button>
+                <button id="subs" data-key="NumpadSubtract">-</button>
+                <button id="mult" data-key="NumpadMultiply">*</button>
+                <button id="div" data-key="NumpadDivide">/</button>
                 <button id="sqrt">√</button>
                 <button id="percent">%</button>
-                <button id="clear">C</button>
-                <button id="clearplus">C/A</button>
-                <button id="equal">=</button>
+                <button id="clear" data-key="Backspace" class="smol">Clear <h6>(Backspace)</h6> </button>
+                <button id="clearplus" data-key="Space" class="smol">Clear All <h6>(Space)</h6> </button>
+                <button id="equal" data-key="Enter">=  <h6 class="smol">(Enter)</h6> </button>
+                <button id="guide" class="smol">See Project's Guidelines</button>
             </div>
-        </div>
-
-    </div>
+        </div>    </div>
     <div id="footer">
-        <h3>Made by Quo210</h3>
+        <h3> Made by Quo210 </h3>
+    </div>
+
+    <div id="guideDiv">
+        <h3>Odin Project Guidelines</h3> <br>
+        <h4>Essentials</h4> <br>
+        <ol>
+            <li>Must perform basic math (Addition,Subtraction,Multiplication,Division)</li>
+            <li>An 'operate' function takes 2 numbers and one operator to return the result.</li>
+            <li>Has digits, symbols, 'equals' and 'clears' buttons.</li>
+            <li>There must be a display for the calculator.</li>
+            <li>Clicking any button should show it on the screen and the number stored somewhere to be used.</li>
+            <li>The calculator should take at any moment up to two (2) numbers to be calculated, not more.</li>
+            <li>User should be able to string together several calculations, showing the ongoing result as more digits are inputed.</li>
+            <li>Round large decimals so it doesn't overflow.</li>
+            <li>Pressing '=' before entering all operators shouldn't cause problems.</li>
+            <li>Clear should wipe all existing data, no remnants of previous calculations should exist.</li>
+            <li>Doesn't allow division by zero.</li>
+        </ol> <br>
+        <h4>Additional (Optional) </h4> <br>
+        <ol>
+            <li>It's possible to work and input floating point numbers (decimals).</li>
+            <li>Calculator should know only a dot can be used for each number. '3.22.66.4' shouldn't be possible to input.</li>
+            <li>Calculator is good looking.</li>
+            <li>There is a backspace button to remove one digit or symbol at a time.</li>
+            <li>Keyboard support.</li>
+        </ol> <br>
+        <h4>Original: <a href="https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/calculator">Odin Project Calculator Guidelines</a></h4>
     </div>
     <script src="scripts.js"></script>
 </body>

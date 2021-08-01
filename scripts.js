@@ -30,6 +30,8 @@ function power(a,b) {
 
 function operate(numb1,numb2,operator) {
     
+    console.log(`Numb1 is ${numb1}, Numb2 is ${numb2} and operator is ${operator}`)
+
     switch(operator) {
         case '+':
             return sum(numb1,numb2)
@@ -43,8 +45,6 @@ function operate(numb1,numb2,operator) {
             return sqrt(numb1);
         case '%':
             return percent(numb1,numb2);
-        case '**':
-            return power(numb1,numb2);
         default:
             console.log('There was an ERROR');
     }
@@ -64,7 +64,7 @@ const paintButtons = (hue,array) => {
     }
 
 
-// Paint me buttons
+// Paint me some buttons
 
 const digitButtons = document.querySelectorAll('div#digits > button');
 const digitButtonsArray = Array.from(digitButtons);
@@ -83,7 +83,9 @@ let value = 50;
 //         if (saturation < 35) { hue += 5; saturation = 100;}
 //     })
 // }
-// Commented this out because repurposed this function to be used in several places
+// 
+
+// Commented out because this function was repurposed
 
 
 // Result population
@@ -100,14 +102,15 @@ function writeOnResultWindow() {
         return }
 
     if (enterPushed === true) {
-        alert('choose a symbol or delete this number to continue')
+        alert('choose a symbol or delete one or more numbers to continue')
         return
     }
     
     (resultWindow.textContent.length == 1 && resultWindow.textContent == 0) ? 
     resultWindow.textContent = this.textContent:
     resultWindow.textContent += this.textContent;
-} // This one only for digits
+
+} // <- Only numbers
 
 //The Dot
 function dotWorksOnce() {
@@ -129,6 +132,7 @@ function listenSymbols() {
     clearButton.removeEventListener('click',writeSymbols);
     clearAllButton.removeEventListener('click',writeSymbols);
     equalButton.removeEventListener('click',writeSymbols);
+    document.querySelector('div#symbols > button#guide').removeEventListener('click',writeSymbols)
     clearButton.addEventListener('click',clearOne);
     clearAllButton.addEventListener('click',clearResult)
     equalButton.addEventListener('click',calculateNshow)
@@ -143,10 +147,12 @@ let lastRemoved = undefined; // From Result Window
 
 const clearResult = () => {
     resultWindow.textContent = 0;
-    storeNumb1 = 0;
-    storeNumb2 = 0;
+    storeNumb1 = undefined;
+    storeNumb2 = undefined;
+    lastRemoved = undefined;
     dotWorksOnce()
     enterPushed = false;
+    currentSymbol = undefined;
 }
 
 const clearOne = () => {
@@ -178,6 +184,10 @@ function writeSymbols() {
         return 
     };
 
+    if (resultWindow.textContent.charAt(0) == '-') {
+        alert('Currently not working with inputed negative integers. Sorry!')
+    }
+
     currentSymbol = this.textContent;
 
     if (resultWindow.textContent.search(/\d+\.{1}$/) == 0) {
@@ -200,14 +210,21 @@ function writeSymbols() {
 
 // Equal symbol
 
-// Was enter pushed?
-
-let enterPushed = false;
+let enterPushed = false; // Was enter pushed?
 
 const equalButton = document.querySelector('button#equal');
 function calculateNshow(){
+    if (enterPushed == true) {
+        alert("You just did that! Try adding more symbols or numbers first.")
+        return
+    }
     let symbolPosition = resultWindow.textContent.indexOf(currentSymbol);
     storeNumb2 = parseFloat(resultWindow.textContent.substr(symbolPosition+1)) 
+    
+    if (storeNumb1 == undefined || storeNumb2 == undefined) {
+        alert('We require two numbers to calculate something! Try writing more.')
+        return
+    }
     let finalResult = Math.round ( operate(storeNumb1,storeNumb2,currentSymbol) * 10 ) / 10;
     resultWindow.textContent = finalResult;
     storeNumb1 = parseFloat( finalResult )
@@ -215,10 +232,60 @@ function calculateNshow(){
     enterPushed = true;
 }
 
+// KEYBOARD support
 
-// Script Activation Zone
+function giveKeystoDigits() {
+    let counter = 0;
+    digitButtonsArray.forEach(element => {
+        element.setAttribute('data-key',`Numpad${counter}`);
+        counter++;
+    })
+    digitButtonsArray[digitButtonsArray.length-1].setAttribute('data-key',"NumpadDecimal");
+}
+
+let keyCode;
+function keyBoardSupport() {
+    
+    window.addEventListener('keydown',(e) => {
+        keyCode = e.code
+        let currentKey = document.querySelector(`button[data-key="${keyCode}"]`);
+        if (!currentKey) {
+            return
+        } else {
+            currentKey.click()
+        }
+    })
+  
+   }
+
+
+// Guidelines Button
+
+const guideButton = document.querySelector('div#symbols > button#guide');
+const hideGuide = () => {
+    document.querySelector('div#guideDiv').style.visibility = 'hidden';
+};
+
+guideButton.addEventListener('click', () => {
+    console.log(document.querySelector('div#guideDiv').style.visibility)
+    if (document.querySelector('div#guideDiv').style.visibility == 'hidden') {
+        document.querySelector('div#guideDiv').style.visibility = 'visible'
+        guideButton.textContent = 'Hide Project\'s Guidelines'
+        guideButton.style.backgroundColor = 'red'
+    } else {
+        document.querySelector('div#guideDiv').style.visibility = 'hidden';
+        guideButton.textContent = 'Show Project\'s Guidelines'
+        guideButton.style.backgroundColor = 'yellow'
+    }
+    
+})
+
+// Script Initialization Zone
 
 paintButtons(1,digitButtonsArray)
 paintButtons(25,symbolButtonsArray)
 listenButtons();
 listenSymbols();
+giveKeystoDigits();
+keyBoardSupport();
+hideGuide();
