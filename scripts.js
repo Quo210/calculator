@@ -11,6 +11,8 @@ function mult(a,b) {
 }
 
 function divide(a,b) {
+    if (b == 0) {alert('Very funny. You can\'t divide by zero')
+                    return a}
     return a / b
 }
 
@@ -96,6 +98,11 @@ function writeOnResultWindow() {
     if (resultWindow.textContent == 0 && this.textContent == ".") {
         resultWindow.textContent = '0.'
         return }
+
+    if (enterPushed === true) {
+        alert('choose a symbol or delete this number to continue')
+        return
+    }
     
     (resultWindow.textContent.length == 1 && resultWindow.textContent == 0) ? 
     resultWindow.textContent = this.textContent:
@@ -136,7 +143,10 @@ let lastRemoved = undefined; // From Result Window
 
 const clearResult = () => {
     resultWindow.textContent = 0;
+    storeNumb1 = 0;
+    storeNumb2 = 0;
     dotWorksOnce()
+    enterPushed = false;
 }
 
 const clearOne = () => {
@@ -145,6 +155,7 @@ const clearOne = () => {
     let newStr = resultWindow.textContent.substr(0,resultWindow.textContent.length-1);
     (resultWindow.textContent.length === 1) ? resultWindow.textContent = 0 : resultWindow.textContent = newStr;
     if(lastRemoved == '.') dotWorksOnce();
+    enterPushed = false;
 }
 
 
@@ -162,7 +173,13 @@ function isItEqual(compare) {
 let currentSymbol = undefined;
 
 function writeSymbols() {
+    if (resultWindow.textContent.search(/\d+\.?\d?[\+\-\*\/\√]+\d+\.?\d?/) != -1){
+        console.log('Inviting an ERR')
+        return 
+    };
+
     currentSymbol = this.textContent;
+
     if (resultWindow.textContent.search(/\d+\.{1}$/) == 0) {
         alert('Try adding another number before a symbol')
     } else if (isItEqual(currentSymbol)==true){
@@ -178,10 +195,14 @@ function writeSymbols() {
     }
 
     storeNumb1 = parseFloat(resultWindow.textContent.substr(0,resultWindow.textContent.length-1)) 
-    console.log(storeNumb1);
+    enterPushed = false;
 }
 
 // Equal symbol
+
+// Was enter pushed?
+
+let enterPushed = false;
 
 const equalButton = document.querySelector('button#equal');
 function calculateNshow(){
@@ -189,7 +210,9 @@ function calculateNshow(){
     storeNumb2 = parseFloat(resultWindow.textContent.substr(symbolPosition+1)) 
     let finalResult = Math.round ( operate(storeNumb1,storeNumb2,currentSymbol) * 10 ) / 10;
     resultWindow.textContent = finalResult;
-    storeNumb1 = parseFloat( finalResult ) 
+    storeNumb1 = parseFloat( finalResult )
+    storenumb2 = undefined;
+    enterPushed = true;
 }
 
 
