@@ -1,10 +1,4 @@
 # calculator
-JavaScript practice for 'The Odin Project' 
+JavaScript practice for myself.
 
-INSTRUCTIONS FROM PROJECT: 
-
-https://www.theodinproject.com/paths/foundations/courses/foundations/lessons/calculator
-
-V2 29JUL2021
-
-Created this branch to further test functionality. Main branch is stable and the original version. 
+Functionality is a common hand calculator. JS Syntax used is pre ES2015 modules. No compilations, no lint, no beautify.
