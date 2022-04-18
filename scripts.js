@@ -73,21 +73,6 @@ let colorHue = 0;
 let saturation = 100;
 let value = 50;
 
-// const paintDigits = () => {
-//     hue = 195;
-//     console.log(hue, saturation, value)
-//     digitButtonsArray.forEach(element => {
-//         element.style.backgroundColor = `hsl(${hue},${saturation}%,${value}%)`;
-//         //console.log(`hsl(${hue},${saturation}%,${value}%)`)
-//         saturation -= 25;
-//         if (saturation < 35) { hue += 5; saturation = 100;}
-//     })
-// }
-// 
-
-// Commented out because this function was repurposed
-
-
 // Result population
 
 const resultWindow = document.querySelector("p#resultNumber");
